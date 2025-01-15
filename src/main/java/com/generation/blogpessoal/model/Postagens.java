@@ -3,10 +3,13 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -32,6 +35,19 @@ public class Postagens{
 	
 	@UpdateTimestamp // o BD fica responsável por gerar e atualizar a data automáticamente
 	private LocalDateTime data;
+	
+	//RELACIONAMENTO ENTRE TABELAS
+	@ManyToOne // indica que esta Classe será o lado N (muitos) e que recebe a FK da Classe Tema
+	@JsonIgnoreProperties("postagem") // indica que uma parte do JSON será ignorado.
+	//Quando o Objeto Postagens for executado, ele irá conter os campos da tb_temas, devido a sua relação
+	// esses campos entrarão como Sub-objetos na visualização.
+	//Porém por se uma relação BIDIRECIONAL, a visualização entraria em loop infinito, mostrando os campos
+	// do Objeto Postagens + tb_temas varias e varias vezes, e para que isso não ocorra usamos essa anotação.
+	// o @JsonIgnoreProperties faz com que seja exibido somente uma vez.
+	private Tema tema;
+	//Criamos o Objeto 'tema' da Classe Tema
+	// ele irá receber os dados da Classe Tema (tb_tema), representa a FK
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,6 +72,13 @@ public class Postagens{
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+	public Tema getTema() {
+		return tema;
+	}
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+	
 	
 	
 	
