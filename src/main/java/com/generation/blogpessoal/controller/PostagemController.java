@@ -24,15 +24,18 @@ import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
-@RestController // define que esta classe é uma Controller
-@RequestMapping("/postagens") // define a url que será utilizada
-@CrossOrigin(origins = "*", allowedHeaders = "*") // permite que a API seja consumida
-// ou seja, permite o recebimento de requisições internas e externas.
+@RestController // define que esta classe é uma Controller do tipo REST, responsável por lidar
+// com as requisições HTTP para 'postagens'
+@RequestMapping("/postagens") // define a url/end point que será utilizada
+@CrossOrigin(origins = "*", allowedHeaders = "*") // permite que a API seja consumida ou seja, permite o recebimento de requisições internas e externas.
+// CrossOrigin: "é a porta de segurança" que define quem e quais cabeçãlhos HTTP podem fazer requisições a estaue aplicações de diferentes API
+// origins = "*" : o 'origins' define quem tem permissão para acessar a API, já "*" significa que qualquer origem pode acessar
+// allowedHeaders: define quais cabeçalhos HTTP podem ser enviados em uma requisição
 public class PostagemController {
 
-	@Autowired // permite e injeção de dependencia.
-	// Criar e instanciar objetos fica a cargo do Spring
+	@Autowired // Criar e instanciar objetos fica a cargo do Spring
 	private PostagemRepository postagemRepository;
+	// 'postagemRepository': Objeto criado para acessar os métodos prontos da (Interface) repository (que tem extends na JPA)
 
 	@Autowired // injeção de dependencia da Classe Tema/Tema Controller. Permite acesso a seus
 				// recursos
@@ -103,7 +106,9 @@ public class PostagemController {
 		
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe!", null);
 		// Se o ID não foi encontrado, executa o comando acima.
-		// Tratativa de execeção, código 400
+		// Ba_Request: Tratativa de execeção, código 400
+		// null: indica que o motivo do erro é somente a ausencia do Id categoria buscado, ou seja
+		// que não nenhuma outra exceção que esteja causando o 400. 
 		
 		
 		// a leitura do código se da de baixo pra cima, ou seja, .body -> return
@@ -126,8 +131,9 @@ public class PostagemController {
 		// o build constroí a resposta negativa 404 -> Não encontrado
 	}
 
-	@ResponseStatus(HttpStatus.NO_CONTENT) // indica que o metodo DELETE tem um 'status http' especifico
-	// quando a operação for bem sucedida. 204
+	@ResponseStatus(HttpStatus.NO_CONTENT) // define um código de status http especifico
+	// quando a operação for bem sucedida. Ele retorna um -> 204
+	// usamos quando não há a necessidade de enviar uma resposta no body da requisição.
 	@DeleteMapping("/{id}") // indica que este é um método DELETE e que ele irá responder todas as
 							// requisições do tipo HTTP DELETE
 	public void delete(@PathVariable Long id) { // tipo void, pois após deletar o registro não há oque retornar

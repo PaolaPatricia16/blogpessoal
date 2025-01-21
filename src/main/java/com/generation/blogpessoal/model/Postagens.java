@@ -36,7 +36,7 @@ public class Postagens{
 	@UpdateTimestamp // o BD fica responsável por gerar e atualizar a data automáticamente
 	private LocalDateTime data;
 	
-	//RELACIONAMENTO ENTRE TABELAS
+	//RELACIONAMENTO ENTRE TABELAS - TAB TEMA
 	@ManyToOne // indica que esta Classe será o lado N (muitos) e que recebe a FK da Classe Tema
 	@JsonIgnoreProperties("postagem") // indica que uma parte do JSON será ignorado.
 	//Quando o Objeto Postagens for executado, ele irá conter os campos da tb_temas, devido a sua relação
@@ -47,6 +47,15 @@ public class Postagens{
 	private Tema tema;
 	//Criamos o Objeto 'tema' da Classe Tema
 	// ele irá receber os dados da Classe Tema (tb_tema), representa a FK
+	
+	
+	// RELACIONAMENTO ENTRE TABELAS - TAB USUARIO
+	@ManyToOne // conecta com a nova Classe Model - Usuario (sendo ela a principal)
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -77,6 +86,12 @@ public class Postagens{
 	}
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	
