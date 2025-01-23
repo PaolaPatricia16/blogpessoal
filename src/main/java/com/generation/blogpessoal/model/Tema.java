@@ -25,7 +25,7 @@ public class Tema {
 	@NotNull(message = "O Atributo Descrição é obrigatório")
 	private String descricao; // string = varchar
 
-	// Essa anotação indica que esta Classe é o lado '1' 
+	// Classe Dependente
 	// ela vai ter uma List contendo os Objetos da Classe Postagens
 	// Dada a relação BIDIRECIONAL serão carregados os dados de Postagens + tb_temas
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)

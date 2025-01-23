@@ -46,7 +46,22 @@ public class Usuario {
 	private List<Postagens> postagem;
 
 	
+	// Método construtor (source->generate) - Alterações para o JUnit
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
+
 	
+	// Método construtor (source->generate) - Alterações para o JUnit
+	public Usuario() {
+	}
+
+
+
 	public Long getId() {
 		return this.id;
 	}

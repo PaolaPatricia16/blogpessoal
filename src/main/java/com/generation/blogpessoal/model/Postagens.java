@@ -36,6 +36,7 @@ public class Postagens{
 	@UpdateTimestamp // o BD fica responsável por gerar e atualizar a data automáticamente
 	private LocalDateTime data;
 	
+	// Classe Principal, pois recebe as FK
 	//RELACIONAMENTO ENTRE TABELAS - TAB TEMA
 	@ManyToOne // indica que esta Classe será o lado N (muitos) e que recebe a FK da Classe Tema
 	@JsonIgnoreProperties("postagem") // indica que uma parte do JSON será ignorado.
